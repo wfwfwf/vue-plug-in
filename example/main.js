@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import vuePlugIn from '../src/main'
 Vue.use(vuePlugIn.elementUI)
+Vue.use(vuePlugIn.tdPlugIn)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
