@@ -1,18 +1,30 @@
 {
   "name": "vue-plug-in",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "version": "1.0.1",
+  "description": "Plug-in based on Vue and Element-UI",
   "author": "wf <yeyu.yeyu@163.com>",
-  "private": true,
+  "keywords": [
+    "vue",
+    "element ui",
+    "pc ui"
+  ],
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "plug": "node build/build_plug-in.js",
+    "vy": "standard && node my-tests.js",
+    "fix": "standard --fix"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wfwfwf/vue-plug-in.git"
+  },
+  "license": "MIT",
   "dependencies": {
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "element-ui": "^2.2.2",
+    "vue": "^2.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -42,6 +54,7 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "node-notifier": "^5.1.2",
+    "node-sass": "^4.7.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
@@ -49,11 +62,14 @@
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
+    "sass-loader": "^6.0.7",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "standard": "^11.0.1",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
+    "vue-router": "^3.0.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",

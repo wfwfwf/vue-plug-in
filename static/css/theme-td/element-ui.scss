@@ -1,0 +1,452 @@
+.el-header .el-col .el-menu-item,
+.el-header .el-menu .el-submenu,
+.el-header .el-menu .el-submenu .el-submenu__title {
+    height: 80px;
+    line-height: 80px;
+    font-weight: 100;
+    font-size: 20px;
+    border: 0px;
+}
+
+// label 样式
+.el-form-item {
+    margin-bottom: 0;
+}
+
+.el-form--label-top .el-form-item__label {
+    padding: 0;
+} // el-row 样式
+.el-form {
+    .el-row {
+        margin: 0;
+        padding: 0;
+        margin-top: 0;
+        .el-col {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+// button
+button {
+    min-width: 128px;
+}
+
+.el-dialog__headerbtn {
+    button {
+        min-width: 0px;
+    }
+}
+
+// .el-pager li.active {
+//     background: #2c323e;
+// }
+//vue router transition css
+.fade-enter-active,
+.fade-leave-active {
+    transition: all .2s ease
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}
+
+// 表格样式
+.el-table thead {
+    color: #2c323e;
+    font-weight: 700;
+    height: 50px!important;
+}
+
+.el-table__footer {
+    color: #2c323e;
+    font-weight: 700;
+}
+
+.el-table th {
+    //padding: 13px 0
+    height: 50px;
+}
+
+.el-table td {
+    padding: 0;
+    height: 42px;
+}
+
+.el-table .cell {
+    white-space: nowrap
+}
+
+// 表格合计行
+.el-table__footer-wrapper tbody td {
+    background: #fff;
+}
+
+// 方章奎table样式修改
+.a-manage-table {
+    .el-table__body-wrapper {
+        overflow: hidden;
+    }
+}
+
+//宋康
+.v-manage {
+    .keysearch.el-input {
+        min-width: 346px;
+        max-width: 400px;
+    }
+    .c-query-input {
+        .el-input .el-input--suffix {
+            min-width: 138px !important;
+            margin-left: 0px !important;
+        }
+    }
+}
+
+// input 搜索提示
+.el-autocomplete-suggestion.el-popper.my-autocomplete {
+    min-width: 200px;
+    width: 500px !important
+}
+
+//输入框
+.el-input__inner {
+    height: 36px; //  line-height: 36px;
+}
+
+//按钮
+.el-button {
+    min-width: 128px;
+    height: 36px;
+}
+
+// 弹窗button宽度更改
+.el-picker-panel,
+.el-message-box {
+    button {
+        min-width: 0px;
+    }
+}
+
+// 左边导航houver
+.el-submenu__title {
+    padding: 0 24px;
+}
+
+.el-submenu__title:hover {
+    background-color: #effde8;
+}
+
+.el-menu-item.is-active {
+    background-color: #fff;
+}
+
+//分页
+.el-pagination__total {
+    margin-right: 20px;
+    background: #f1f6fa;
+}
+
+.el-pagination__jump {
+    margin-left: 20px;
+}
+
+.c-container .c-content .block .el-pagination__editor.is-in-pagination {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.el-pagination.is-background .el-pager li {
+    width: 32px;
+    min-width: 0px;
+    margin: 0 1px;
+    background: #f1f6fa;
+}
+
+.el-pagination.is-background .btn-prev.disabled {
+    background: #f1f6fa;
+}
+
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .btn-next {
+    background: #f1f6fa;
+}
+
+.el-button--primary.is-disabled,
+.el-button--primary.is-disabled:hover,
+.el-button--primary.is-disabled:focus,
+.el-button--primary.is-disabled:active {
+    color: #fff;
+    background-color: #c4ccd6;
+    border-color: #c4ccd6;
+}
+
+.el-pagination {
+    .el-input {
+        min-width: 42px;
+    }
+    .el-select .el-input {
+        min-width: 128px;
+    }
+    .el-pagination__editor.el-input .el-input__inner {
+        width: 42px;
+    }
+}
+
+// 张泽贤
+.s-query,
+.s-approve,
+.s-add,
+.s-modify {
+    .el-tabs__nav-wrap::after {
+        background-color: #e9f0f7;
+    }
+    .el-tabs__item {
+        font-size: 20px;
+        font-weight: normal;
+        line-height: 20px;
+        padding: 0 32px;
+        color: #454c5a;
+        height: 36px;
+        &.is-active {
+            color: #19bf4f;
+        }
+        &.is-disabled {
+            color: #c0c4cc;
+        }
+    }
+    .el-tabs__header {
+        margin: 0;
+    }
+    .el-form-item__label {
+        line-height: 14px;
+        margin-bottom: 12px;
+        color: #83909d;
+    }
+    .el-form-item__content {
+        line-height: 14px;
+        margin-bottom: 23px;
+        color: #2c323e;
+    }
+}
+
+// 张泽贤
+.s-approve,
+.s-query {
+    .el-col {
+        // 保证居左对齐
+        text-align: left; // 强制一行显示
+        white-space: nowrap;
+    }
+    .wrap {
+        .el-form-item {
+            width: 100%;
+            .el-form-item__content {
+                white-space: normal;
+                width: calc(100% - 110px);
+            }
+        }
+    }
+}
+
+//弹窗
+.el-message {
+    top: 240px;
+    background: #fff;
+    height: 168px;
+    width: 540px;
+    border: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 10px #eee;
+    .el-message__icon {
+        display: none;
+    }
+    .el-message__icon:before {
+        width: 100px;
+        height: 100px;
+        background: red;
+    }
+    .icon-hint_icon- {
+        color: #ff494a;
+        font-size: 48px;
+        top: 24px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    p {
+        text-align: center;
+        color: #000 !important;
+        margin-top: 30px;
+        font-size: 16px;
+    }
+    .el-message__closeBtn {
+        top: 15%;
+    }
+}
+
+//弹框
+.el-icon-warning {
+    display: none;
+}
+
+.el-button--small {
+    width: 128px;
+    height: 36px;
+}
+
+.el-message-box__btns button:nth-child(2) {
+    margin-left: 20px;
+}
+
+.el-dialog {
+    max-height: 62%;
+    overflow: auto;
+}
+
+.g-goods-list {
+    .el-dialog {
+        min-width: 850px;
+    }
+}
+
+// 模态框关闭按钮宽度
+.el-dialog__header {
+    button {
+        min-width: 0px;
+    }
+}
+
+.el-message-box__message .icon-hint_icon- {
+    color: #ff494a;
+    font-size: 48px;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+// 张泽贤 价格管理页面
+.p-selling-system,
+.p-purchase-system {
+    .left {
+        position: relative;
+        .el-pagination {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .right {
+        .el-form {
+            .el-row {
+                .el-form-item {
+                    margin: 0;
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                .el-col-twoline {
+                    display: inline-block;
+                    position: relative;
+                }
+                .el-date-editor--daterange.el-input__inner {
+                    width: 100%;
+                }
+                .el-form-item__label {
+                    width: 85px;
+                    float: left;
+                    text-align: right;
+                }
+                .el-form-item__content {
+                    display: block;
+                    padding-left: 85px;
+                }
+                .el-form-item {
+                    white-space: nowrap;
+                }
+                .el-select {
+                    display: block;
+                    position: relative;
+                }
+                .el-form-item.c-query-select {
+                    white-space: nowrap;
+                    display: block;
+                    .el-input__inner {
+                        width: 100%;
+                    }
+                    .el-form-item__label .c-left {
+                        text-align: left;
+                    }
+                }
+                .f-right {
+                    float: right;
+                }
+                .c-query-input {
+                    display: block;
+                    white-space: nowrap;
+                    .el-button {
+                        width: 128px;
+                        padding: 0;
+                    }
+                }
+                .c-query-range-date {
+                    white-space: nowrap;
+                    width: 100%;
+                }
+                div.el-form-item.c-query-range-date {
+                    margin-right: 0;
+                }
+            }
+        }
+    } // 去掉表格的横向滚动条
+    .el-table__body-wrapper,
+    .el-table__footer-wrapper,
+    .el-table__header-wrapper {
+        width: 101%;
+    } // 日期时间选择器
+    .el-date-editor.el-input {
+        width: 100%;
+    }
+    .el-input.is-disabled .el-input__inner {
+        color: #606266;
+    }
+    .el-dialog__body {
+        padding: 24px;
+    }
+    .el-dialog__footer {
+        padding: 24px;
+        padding-top: 0;
+    }
+    .el-dialog {
+        // width: 70%;
+        min-width: 1130px;
+    }
+    .goods-table {
+        .el-table__header-wrapper {
+            .is-leaf {
+                padding: 0;
+            }
+        }
+        .cell {
+            height: 42px;
+            line-height: 42px;
+            cursor: pointer;
+        }
+    }
+}
+
+// 添加商品页面
+.g-add-price {
+    .el-radio__label {
+        display: none;
+        width: 0;
+        font-size: 0px;
+    }
+    .el-table thead.is-group th {
+        background: #fff;
+    }
+}

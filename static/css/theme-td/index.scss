@@ -1,0 +1,260 @@
+// 初始化样式
+@import 'element-ui/lib/theme-chalk/index.css';
+@import './init.scss';
+@import './element-ui.scss';
+.required::before {
+    content: '*';
+    color: red;
+    margin-right: 2px;
+} // 表格标题样式
+.title {
+    width: 100%;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    p {
+        margin: 0;
+        padding: 0;
+        padding-left: 5px;
+        line-height: 30px;
+        text-align: left;
+    }
+} // 搜索区域
+// 布局公共样式
+.c-container {
+    width: 100%;
+    background: inherit;
+    .el-button {
+        height: 36px;
+        padding: 0;
+    }
+    .c-float {
+        position: relative;
+    }
+    .c-right {
+        position: absolute;
+        right: 0;
+        bottom: 40%;
+        .el-button {
+            color: #83909d;
+        }
+    }
+
+    .c-header {
+        padding: 24px;
+        background: white;
+        width: 100%;
+        margin-bottom: 30px;
+        border: 1px solid #fff;
+        border-radius: 8px;
+        box-shadow: 1px 1px 2px 0px #c4ccd6;
+        .el-collapse-item__header {
+            border-bottom: 0;
+            color: #19bf4f;
+            font-weight: 700;
+            font-family: '冬青黑体简体中文W6';
+            font-size: 14px;
+            height: 30px;
+            line-height: 30px;
+            .el-collapse-item__arrow {
+                line-height: 30px;
+            }
+        }
+
+        .el-collapse {
+            border-bottom: 0;
+            border-top: 0;
+        }
+        .el-collapse-item__wrap {
+            border-bottom: 0;
+        }
+        .el-form {
+            .el-row {
+                .el-form-item {
+                    margin: 0;
+                }
+                margin-bottom: 24px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                .el-col-twoline {
+                    display: inline-block;
+                    position: relative;
+                }
+                .el-date-editor--daterange.el-input__inner {
+                    width: 100%;
+                }
+                .el-form-item__label {
+                    width: 85px;
+                    float: left;
+                    text-align: right;
+                }
+                .el-form-item__content {
+                    display: block;
+                    padding-left: 85px;
+                }
+                .el-form-item {
+                    white-space: nowrap;
+                }
+                .el-select {
+                    display: block;
+                    position: relative;
+                }
+                .el-form-item.c-query-select {
+                    white-space: nowrap;
+                    display: block;
+                    .el-input__inner {
+                        width: 100%;
+                    }
+                    .el-form-item__label .c-left {
+                        text-align: left;
+                    }
+                }
+                .f-right {
+                    float: right;
+                }
+                .c-query-input {
+                    display: block;
+                    white-space: nowrap;
+                    .el-button {
+                        width: 128px;
+                        padding: 0;
+                    }
+                    .el-button:nth-child(2) {
+                        margin-left: 20px;
+                    }
+                }
+                .c-query-range-date {
+                    white-space: nowrap;
+                    width: 100%;
+                }
+                div.el-form-item.c-query-range-date {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    .c-content {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #fff;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 1px 1px 2px 0px #c4ccd6;
+        padding: 24px 24px 24px 24px;
+        display: block;
+        .router-link {
+            height: 56px;
+        }
+        .el-button+.el-button {
+            margin-left: 20px; // min-width: 65px;
+        }
+        .m-left {
+            margin-left: 20px;
+        } //表格内容左对齐
+        .cell .el-button {
+            text-align: left;
+        }
+        .s-ll-contn-a {
+            float: right; //  margin: 10px 0;
+            padding-right: 30px;
+            padding-left: 30px;
+            color: #1d96ff;
+            height: 36px;
+            line-height: 36px;
+        }
+        .s-btn {
+            min-width: 65px !important; //  padding-left: 7px;
+            //  text-align: left;
+        }
+        //分页
+        .block {
+            float: right;
+            margin: 24px 0px 0px 0px;
+        }
+        //采购详情
+        .c-content-info {
+            border-bottom: 4px solid #e9f0f7;
+            border-bottom-right-radius: 2px;
+            border-bottom-left-radius: 2px;
+            height: 56px;
+            padding-bottom: 16px;
+            position: relative;
+            .c-content-left {
+                position: absolute;
+                display: inline-block;
+                height: 56px;
+                font-size: 20px;
+                color: #19bf4f;
+                font-weight: 700;
+                border-bottom: 4px solid #19bf4f;
+                border-bottom-right-radius: 2px;
+                border-bottom-left-radius: 2px;
+            }
+            .c-content-right {
+                float: right;
+            }
+        }
+        .c-content-row {
+            border-bottom: 1px solid #ebeef5;
+            .el-row {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                span {
+                    font-size: 14px;
+                }
+                span:first-child {
+                    color: #83909d;
+                    font-family: "青东W6";
+                    margin-right: 14px;
+                }
+                span:last-child {
+                    color: #2c323e;
+                    font-family: "微软雅黑"
+                }
+            }
+        }
+    }
+}
+
+.c-button__default {
+    border-color: #19bf4f;
+    color: #19bf4f
+}
+
+.c-button__disable {
+    border-color: #c4ccd6;
+    color: #c4ccd6
+}
+
+// 字体加粗
+.bigger {
+    font-weight: 700;
+}
+
+// 审核通过
+.ey-review-success {
+    font-family: "微软雅黑regular";
+    color: #19bf4f;
+}
+
+// 待审核
+.ey-review-pending {
+    font-family: "微软雅黑regular";
+    color: #1d96ff;
+}
+
+// 不通过
+.ey-review-error {
+    font-family: "微软雅黑regular";
+    color: #ff494a;
+}
+
+// 字体加粗
+.bigger {
+    font-weight: 700;
+}
+
+.el-collapse-item__content {
+    padding-bottom: 0;
+}
