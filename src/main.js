@@ -1,9 +1,5 @@
-import elementUI from 'element-ui'
-import 'static/css/theme-td/icon/iconfont.css'
-import 'static/css/theme-td/index.scss'
-import tdPlugIn from '../package'
-
+import tdPlugIn from '../packages'
 export default {
-  elementUI: elementUI,
-  tdPlugIn: tdPlugIn
+  version: '0.0.3',
+  tdPlugIn
 }

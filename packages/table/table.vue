@@ -1,20 +1,24 @@
 <template>
   <div class="td-table">
-    <el-table ref="ha_table" :data="data" style="width: 100%" highlight-current-row border @row-click="handleRowHandle" :height="height" @filter-change="tableFilter">
+    <el-table ref="ha_table" :data="data" style="width: 100%" highlight-current-row @row-click="handleRowHandle" :height="height" @filter-change="tableFilter" @selection-change="handleSelectionChange">
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
+
       <el-table-column v-if="isShowOrderNum" type="index" label="序号" width="70" resizable show-overflow-tooltip>
-        <template scope="scope">
+        <template slot-scope="scope">
           {{1+scope.$index+(pageInfo.page-1)*pageInfo.pageSize}}
         </template>
       </el-table-column>
 
-      <template v-for="column in columns">
-        <el-table-column  v-if="column.operations" :fixed="column.fixed" :prop="column.prop" :label="column.label" :width="column.width" >
-          <template scope="scope">
-            <el-button v-for="(operate, index) in column.operations" :key="index" size="small" type="text" @click.native.prevent="operate.func(scope.$index, scope.row)">{{operate.label}}</el-button>
-          </template>
+      <template v-for="(column, ix) in columns">
+        <el-table-column v-if="column.formatter" :fixed="column.fixed" resizable show-overflow-tooltip :prop="column.prop" :label="column.label" :width="column.width" :column-key="column.key" :formatter="column.formatter" :filters="column.filters" :filter-multiple="false">
         </el-table-column>
-
-        <el-table-column v-else-if="column.formatter" :fixed="column.fixed" resizable show-overflow-tooltip :prop="column.prop" :label="column.label" :width="column.width" :column-key="column.key" :formatter="column.formatter" :filters="column.filters" :filter-multiple="false">
+        <el-table-column  v-else-if="column.operations" :fixed="column.fixed" :prop="column.prop" :label="column.label" :width="column.width" >
+          <template slot-scope="scope">
+            <el-button v-for="(operate, index) in column.operations" :key="index" type="text" @click.native.prevent="operate.func(scope.$index, scope.row)">{{operate.label}}</el-button>
+          </template>
         </el-table-column>
 
         <el-table-column v-else resizable show-overflow-tooltip :fixed="column.fixed" :prop="column.prop" :label="column.label" :width="column.width" :column-key="column.key" :formatter="defaultFormatter"  :filters="column.filters">
@@ -99,18 +103,25 @@ export default {
         this.myPageInfo.page = 1;
       }
       this.$emit("handleSizeChange", val)
+      this.$emit('size-change', val)
     },
     // 页面更改
     handleCurrentChange(val) {
       this.myPageInfo.page = val;
       this.$emit("handleCurrentChange", val)
+      this.$emit('current-change', val)
     },
     // 行点击
     handleRowHandle(row, event, column) {
       this.$emit("handleRowHandle", row, event, column)
+      this.$emit("row-click", row, event, column)
     },
     defaultFormatter(row, column) {
       return row[column.property]
+    },
+    // 当选择项发生变化时会触发该事件
+    handleSelectionChange(val) {
+      this.$emit("selection-change", val)
     }
   },
   mounted() {

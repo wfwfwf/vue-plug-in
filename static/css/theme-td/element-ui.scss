@@ -403,11 +403,7 @@ button {
             }
         }
     } // 去掉表格的横向滚动条
-    .el-table__body-wrapper,
-    .el-table__footer-wrapper,
-    .el-table__header-wrapper {
-        width: 101%;
-    } // 日期时间选择器
+    // 日期时间选择器
     .el-date-editor.el-input {
         width: 100%;
     }

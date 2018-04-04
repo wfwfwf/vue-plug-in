@@ -1,4 +1,4 @@
-# vue-plug-in
+# Plug-in based on Vue and Element-UI
 
 > A Vue.js project
 

@@ -7,6 +7,8 @@
       <el-radio v-model="radio" label="1">备选项</el-radio>
       <el-radio v-model="radio" label="2">备选项</el-radio>
     </p>
+    <td-table :isShowOrderNum="true" :existPage="false" :data="tableData" :columns="tableColumns">
+    </td-table>
   </div>
 </template>
 
@@ -17,7 +19,18 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       input: '',
-      radio: '2'
+      radio: '2',
+      tableData: [{'no': 22, 'type': '222'}],
+      tableColumns: [{
+        prop: 'no',
+        label: '盘点单号'
+      }, {
+        prop: 'type',
+        label: '盘点类型',
+        formatter: function (item) {
+          return 'cc'
+        }
+      }]
     }
   }
 }

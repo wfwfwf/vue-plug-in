@@ -3,8 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import elementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+import '../static/css/theme-td/theme/index.css'
+import '../static/css/theme-td/icon/iconfont.css'
+import '../static/css/theme-td/index.scss'
+
 import vuePlugIn from '../src/main'
-Vue.use(vuePlugIn.elementUI)
+Vue.use(elementUI)
 Vue.use(vuePlugIn.tdPlugIn)
 Vue.config.productionTip = false
 
