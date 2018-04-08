@@ -2,7 +2,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-family: Microsoft YaHei, 冬青黑体简体中文W6, Arial, sans-serif ;
+    font-family: Microsoft YaHei, 冬青黑体简体中文W6, Arial, sans-serif;
     background: #f1f6fa;
     min-width: 1366px;
 }
@@ -88,6 +88,7 @@ img {
     border: none;
     vertical-align: middle;
 }
+
 h1,
 h2,
 h3,
@@ -143,4 +144,27 @@ textarea {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+// chrome滚动条
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+    -webkit-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 5px;
+    background-color: #ccc;
+    -webkit-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    width: 5px;
+    background-color: #ccc;
+    -webkit-border-radius: 10px;
 }
