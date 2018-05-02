@@ -1,14 +1,16 @@
 {
   "name": "today-vue-plug-in",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Plug-in based on Vue and Element-UI",
   "author": "wfwfwf <yeyu.yeyu@163.com>",
-  "main": "src/main.js",
+  "main": "lib/static/js/index.js",
   "files": [
+    "config",
+    "build",
+    "example",
     "lib",
-    "src",
-    "package",
-    "example"
+    "packages",
+    "src"
   ],
   "keywords": [
     "vue",
@@ -16,6 +18,8 @@
     "pc ui"
   ],
   "scripts": {
+    "build:utils": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/main.js",
+    "clean": "rimraf lib && rimraf packages/*/lib && rimraf test/**/coverage && lerna clean --yes",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
@@ -31,6 +35,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "cross-env": "^5.1.4",
     "element-ui": "^2.2.2",
     "vue": "^2.5.2"
   },
@@ -58,7 +63,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^1.1.4",
+    "file-loader": "^1.1.11",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "globby": "^8.0.1",
     "html-webpack-plugin": "^2.30.1",

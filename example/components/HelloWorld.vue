@@ -7,8 +7,12 @@
       <el-radio v-model="radio" label="1">备选项</el-radio>
       <el-radio v-model="radio" label="2">备选项</el-radio>
     </p>
-    <td-table :isShowOrderNum="true" :existPage="false" :data="tableData" :columns="tableColumns">
-    </td-table>
+
+    <div class="demo_table">
+      <td-table :existCheckBox="false" :isShowOrderNum="true" :existPage="false" :data="tableData" :columns="tableColumns">
+      </td-table>
+    </div>
+
   </div>
 </template>
 
@@ -50,5 +54,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.demo_table {
+  text-align: left;
 }
 </style>

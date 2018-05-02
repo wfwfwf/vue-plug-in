@@ -1,7 +1,9 @@
 <template>
   <div class="td-table">
     <el-table ref="ha_table" :data="data" style="width: 100%" highlight-current-row @row-click="handleRowHandle" :height="height" @filter-change="tableFilter" @selection-change="handleSelectionChange">
+
       <el-table-column
+        v-if="existCheckBox"
         type="selection"
         width="55">
       </el-table-column>
@@ -51,6 +53,10 @@ export default {
     columns:Array,        // 列
     width: [String, Number],
     height: [String, Number],
+    existCheckBox: {
+      type: Boolean,
+      default: true
+    },
     existPage : {         // 是否有分页面，false时表示没有分页
       type: Boolean,
       default: true

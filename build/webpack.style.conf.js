@@ -42,14 +42,14 @@ const webpackConfig = merge(baseWebpackConfig, {
     rules: utils.styleLoaders({
       sourceMap: config.plug.productionSourceMap,
       extract: true,
-      usePostCSS: true
+      usePostCSS: false
     })
   },
   devtool: config.plug.productionSourceMap ? config.plug.devtool : false,
   output: {
-    path: config.plug.assetsRoot,
-    filename: utils.assetsPath('css/[name].css'),
-    chunkFilename: utils.assetsPath('css/[id].css')
+    path: config.plug.assetsRoot + '/element',
+    filename: '[name].css',
+    chunkFilename: '[id].css'
   },
 
   plugins: [
@@ -68,7 +68,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     //}),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].css'),
+      filename: '[name].css',
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
@@ -85,23 +85,6 @@ const webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-if (config.plug.productionGzip) {
-  const CompressionWebpackPlugin = require('compression-webpack-plugin')
-
-  webpackConfig.plugins.push(
-    new CompressionWebpackPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: new RegExp(
-        '\\.(' +
-        config.plug.productionGzipExtensions.join('|') +
-        ')$'
-      ),
-      threshold: 10240,
-      minRatio: 0.8
-    })
-  )
-}
 
 if (config.plug.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin

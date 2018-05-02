@@ -11,7 +11,10 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '../static/css/theme-td/index.scss';
+@import '../static/css/theme-td/init.scss';
+@import '../static/css/theme-td/theme/index.css';
+@import '../static/css/theme-td/icon/iconfont.css';
+@import '../static/css/theme-td/element.scss';
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
