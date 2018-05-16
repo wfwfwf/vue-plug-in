@@ -15,15 +15,15 @@
       </el-table-column>
 
       <template v-for="(column, ix) in columns">
-        <el-table-column v-if="column.formatter" :fixed="column.fixed" resizable show-overflow-tooltip :prop="column.prop" :label="column.label" :width="column.width" :column-key="column.key" :formatter="column.formatter" :filters="column.filters" :filter-multiple="false">
+        <el-table-column v-if="column.formatter" :fixed="column.fixed" resizable show-overflow-tooltip :prop="column.prop" :label="column.label" :key="column.prop" :width="column.width" :column-key="column.key" :formatter="column.formatter" :filters="column.filters" :filter-multiple="false">
         </el-table-column>
-        <el-table-column  v-else-if="column.operations" :fixed="column.fixed" :prop="column.prop" :label="column.label" :width="column.width" >
+        <el-table-column  v-else-if="column.operations" :fixed="column.fixed" :prop="column.prop" :label="column.label" :key="column.prop" :width="column.width" >
           <template slot-scope="scope">
             <el-button v-for="(operate, index) in column.operations" :key="index" type="text" @click.native.prevent="operate.func(scope.$index, scope.row)">{{operate.label}}</el-button>
           </template>
         </el-table-column>
 
-        <el-table-column v-else resizable show-overflow-tooltip :fixed="column.fixed" :prop="column.prop" :label="column.label" :width="column.width" :column-key="column.key" :formatter="defaultFormatter"  :filters="column.filters">
+        <el-table-column v-else resizable show-overflow-tooltip :fixed="column.fixed" :prop="column.prop" :key="column.prop"  :label="column.label" :width="column.width" :column-key="column.key" :formatter="defaultFormatter"  :filters="column.filters">
         </el-table-column>
       </template>
     </el-table>

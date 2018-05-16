@@ -1,29 +1,27 @@
 'use strict'
-const path = require('path')
+// const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const glob = require('globby')
+// const glob = require('globby')
 
 const env = require('../config/prod.env')
 
 // CSS入口配置
-/*var CSS_PATH = {
+/* var CSS_PATH = {
  css: {
  pattern: ['./src/!**!/[^_]*.less', '!./src/old/!**!/!*.less'],
  src: path.join(__dirname, 'src'),
  dst: path.resolve(__dirname, 'static/build/webpack'),
  }
- }*/
+ } */
 // 遍历除所有需要打包的CSS文件路径
-function getCSSEntries(config) {
+/* function getCSSEntries (config) {
   var fileList = glob.sync(config.pattern)
   return fileList.reduce(function (previous, current) {
     var filePath = path.parse(path.relative(config.src, current))
@@ -31,8 +29,7 @@ function getCSSEntries(config) {
     previous[withoutSuffix] = path.resolve(__dirname, current)
     return previous
   }, {})
-}
-
+} */
 
 const webpackConfig = merge(baseWebpackConfig, {
   entry: {
@@ -57,7 +54,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    //new UglifyJsPlugin({
+    // new UglifyJsPlugin({
     //  uglifyOptions: {
     //    compress: {
     //      warnings: false
@@ -65,7 +62,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     //  },
     //  sourceMap: false,
     //  parallel: true
-    //}),
+    // }),
     // extract css into its own file
     new ExtractTextPlugin({
       filename: '[name].css',
@@ -84,7 +81,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     })
   ]
 })
-
 
 if (config.plug.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
