@@ -1,6 +1,6 @@
 {
   "name": "today-vue-plug-in",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Plug-in based on Vue and Element-UI",
   "author": "wfwfwf <yeyu.yeyu@163.com>",
   "main": "lib/static/js/index.js",

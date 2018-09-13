@@ -81,9 +81,6 @@ export default {
   },
   mounted () {
 
-    // this.$refs.tdDragTable.$children[0].bindEvents('selectionChange', function (params) {
-    //   console.log('params: ', params)
-    // })
   }
 }
 </script>
