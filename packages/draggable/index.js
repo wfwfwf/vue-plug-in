@@ -28,15 +28,12 @@ function computeVmIndex (vnodes, element) {
 }
 
 function computeIndexes (slots, children, isTransition) {
-  console.log('----computeIndexes ____', slots)
   if (!slots) {
     return []
   }
 
   const elmFromNodes = slots.map(elt => elt.elm)
-  console.log('----elmFromNodes ____', elmFromNodes)
   const rawIndexes = [...children].map(elt => elmFromNodes.indexOf(elt))
-  console.log('----rawIndexes ____', rawIndexes)
   return isTransition ? rawIndexes.filter(ind => ind !== -1) : rawIndexes
 }
 
@@ -53,8 +50,8 @@ function delegateAndEmit (evtName) {
   }
 }
 
-const eventsListened = ['Start', 'Add', 'Remove', 'Update', 'End']
-const eventsToEmit = ['Choose', 'Sort', 'Filter', 'Clone']
+const eventsListened = ['Start', 'Add', 'Remove', 'Update', 'End', 'RowClick']
+const eventsToEmit = ['Choose', 'Sort', 'Filter', 'Clone', 'RowClick', 'selectionChange']
 const readonlyProperties = ['Move', ...eventsListened, ...eventsToEmit].map(evt => 'on' + evt)
 
 const props = {
@@ -117,9 +114,16 @@ export default {
       children = slots ? [...slots, ...footer] : [...footer]
     }
     var attributes = null
-    const update = (name, value) => { attributes = buildAttribute(attributes, name, value) }
-    update('attrs', this.$attrs)
 
+    const update = (name, value) => { attributes = buildAttribute(attributes, name, value) }
+
+    // 对element tabel行点击事件进行兼容
+    if (JSON.stringify(this.$attrs) !== '{}') {
+      update('attrs', {data: this.list})
+    } else {
+      update('attrs', this.$attrs)
+    }
+    console.log(this)
     return h(this.element, attributes, children)
   },
 
@@ -141,9 +145,8 @@ export default {
     const options = Object.assign({}, this.options, optionsAdded, { onMove: (evt, originalEvent) => { return this.onDragMove(evt, originalEvent) } })
     !('draggable' in options) && (options.draggable = '>*')
     this._sortable = new Sortable(this.rootContainer, options)
-    //this.computeIndexes()
+    // this.computeIndexes()
   },
-
   beforeDestroy () {
     this._sortable.destroy()
   },
@@ -211,7 +214,7 @@ export default {
         evt.item._underlying_vm_ = this.clone(this.context.element)
       }
     },
-    onDragMove(evt) {
+    onDragMove (evt) {
       // console.log("onDragMove: ", evt)
     },
     onDragUpdate (evt) {

@@ -1,429 +1,424 @@
 <script>
-  export default {
-    name: 'td-cascader-tree',
+export default {
+  name: 'td-cascader-tree',
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    initVal: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    height: {
+      type: Number,
+      default () {
+        return 300
+      }
+    },
     props: {
-      data :  {
-        type: Array,
-        default() {
-          return []
-        }
-      },
-      initVal :  {
-        type: Array,
-        default() {
-          return []
-        }
-      },
-      height : {
-        type : Number,
-        default() {
-          return 300
-        }
-      },
-      props: {
-        type: Object,
-        default() {
-          return {
-            child: 'child',
-            id: 'id',
-            name: 'name'
-          };
-        }
-      },
-    },
-    data() {
-      return {
-        myTreeData : [],        // 格式化树得到的数据
-        expandingIndexArr: [], // 展开数组对应的下标
-        queryVal : ''   // 搜索值
-      }
-    },
-    components: {
-
-    },
-    watch: {
-
-    },
-
-    computed: {
-      ulStyle() {
+      type: Object,
+      default () {
         return {
-          height : this.height + 'px'
+          child: 'child',
+          id: 'id',
+          name: 'name'
         }
       }
-    },
+    }
+  },
+  data () {
+    return {
+      myTreeData: [], // 格式化树得到的数据
+      expandingIndexArr: [], // 展开数组对应的下标
+      queryVal: '' // 搜索值
+    }
+  },
+  components: {
 
-    methods: {
-      /**
+  },
+  watch: {
+
+  },
+
+  computed: {
+    ulStyle () {
+      return {
+        height: this.height + 'px'
+      }
+    }
+  },
+
+  methods: {
+    /**
        * 获取选中项
        * treeArr
        * resArr 表示id结果
        * resJsonArr 表示整体json数组
        * */
-      getCheckedArr (treeArr, resArr, resJsonArr) {
-        treeArr.forEach((item, index) => {
-          if (item.check === 1) {
-            resArr.push(item[this.props.id])
-            resJsonArr.push(item)
-          } else {
-            if (item[this.props.child] && item[this.props.child].length > 0) {
-              this.getCheckedArr(item[this.props.child], resArr, resJsonArr)
-            }
+    getCheckedArr (treeArr, resArr, resJsonArr) {
+      treeArr.forEach((item, index) => {
+        if (item.check === 1) {
+          resArr.push(item[this.props.id])
+          resJsonArr.push(item)
+        } else {
+          if (item[this.props.child] && item[this.props.child].length > 0) {
+            this.getCheckedArr(item[this.props.child], resArr, resJsonArr)
           }
-        })
-      },
-      /**
+        }
+      })
+    },
+    /**
        * 选中改变的时候
        * **/
-      onChange() {
-        let resArr = [], resJsonArr = []
-        this.getCheckedArr(this.myTreeData, resArr, resJsonArr)
-        this.$emit('change', resArr, resJsonArr)
-      },
-      /***
+    onChange () {
+      let resArr = []
+      let resJsonArr = []
+      this.getCheckedArr(this.myTreeData, resArr, resJsonArr)
+      this.$emit('change', resArr, resJsonArr)
+    },
+    /***
        * 格式化树添加idx来作为每项在树中的位置
        * treeArr
        * idx  在数组中的位置
        * */
-      formatterTreeArr () {
-        let newArr = []
-        this.data.forEach((item, index) => {
-          let newItem = Object.assign({}, item)
-          newArr.push(this.formatterItem(newItem, index))
-        })
-        this.myTreeData = newArr
-      },
-      /***
+    formatterTreeArr () {
+      let newArr = []
+      this.data.forEach((item, index) => {
+        let newItem = Object.assign({}, item)
+        newArr.push(this.formatterItem(newItem, index))
+      })
+      this.myTreeData = newArr
+    },
+    /***
        * 为每一项添加在数据中的位置，并且根据初始值初始化每一项是否选中
        * **/
-      formatterItem (item, idx, status) {
-        idx = idx + ''
-        let idxArr = idx.split('-')
-        item.lev = idxArr.length
-        item.idx = idx
-        if (( this.initVal && this.initVal.length > 0 && this.initVal.indexOf(item[this.props.id]) > -1 ) || status === 1) {
-          item.check = 1
-        }
-        if (!item[this.props.child] || item[this.props.child].length < 1) {
-          return item
-        }
-        // 根据子决定父类是否选中
-        let check_num1 = 0
-        let check_num2 = 0
-        item[this.props.child] = item[this.props.child].map((it, ix) => {
-          if (item.check === 1 || ( this.initVal && this.initVal.length > 0 && this.initVal.indexOf(it.id) > -1 )) {
-            it.check = 1
-          }
-          let newItem = Object.assign({}, it)
-          it = this.formatterItem(newItem, idx + '-' + ix, it.check)
-          if ( 1 === it.check ) {
-            check_num1 = check_num1 + 1
-          } else if ( 2 === it.check ) {
-            check_num2 = check_num2 + 1
-          }
-          return it
-        })
-
-        // 是否根据子类选中数来判断当前是否应该选中
-        if ( typeof (item.check) === undefined || !item.check) {
-          if (check_num1 === item[this.props.child].length) {
-            item.check = 1
-          } else if (check_num2 > 0 || check_num1> 0) {
-            item.check = 2
-          } else {
-            item.check = null
-          }
-        }
+    formatterItem (item, idx, status) {
+      idx = idx + ''
+      let idxArr = idx.split('-')
+      item.lev = idxArr.length
+      item.idx = idx
+      if ((this.initVal && this.initVal.length > 0 && this.initVal.indexOf(item[this.props.id]) > -1) || status === 1) {
+        item.check = 1
+      }
+      if (!item[this.props.child] || item[this.props.child].length < 1) {
         return item
-      },
-      /***
+      }
+      // 根据子决定父类是否选中
+      let checkNum1 = 0
+      let checkNum2 = 0
+      item[this.props.child] = item[this.props.child].map((it, ix) => {
+        if (item.check === 1 || (this.initVal && this.initVal.length > 0 && this.initVal.indexOf(it.id) > -1)) {
+          it.check = 1
+        }
+        let newItem = Object.assign({}, it)
+        it = this.formatterItem(newItem, idx + '-' + ix, it.check)
+        if (it.check === 1) {
+          checkNum1 = checkNum1 + 1
+        } else if (it.check === 2) {
+          checkNum2 = checkNum2 + 1
+        }
+        return it
+      })
+
+      // 是否根据子类选中数来判断当前是否应该选中
+      if (typeof (item.check) === 'undefined' || !item.check) {
+        if (checkNum1 === item[this.props.child].length) {
+          item.check = 1
+        } else if (checkNum2 > 0 || checkNum1 > 0) {
+          item.check = 2
+        } else {
+          item.check = null
+        }
+      }
+      return item
+    },
+    /***
        * 展开第几级的第几项
        * @param item
        * @param lev   级数
        * @param index 项数
          */
-      selectItem (item, index) {
-        let lev = item.lev - 1
-        let arr = this.expandingIndexArr
-        arr[lev] = index
-        let arr2 = ( lev === 0 ? [] : arr.slice(0, lev) )
-        arr2.push(arr[lev])
-        this.expandingIndexArr = arr2
-      },
+    selectItem (item, index) {
+      let lev = item.lev - 1
+      let arr = this.expandingIndexArr
+      arr[lev] = index
+      let arr2 = (lev === 0 ? [] : arr.slice(0, lev))
+      arr2.push(arr[lev])
+      this.expandingIndexArr = arr2
+    },
 
-      // 根据父类设置子以及子孙类选中状态
-      setChildCheckByParent(item, status) {
-        if (item && item[this.props.child] && item[this.props.child].length > 0) {
-          item[this.props.child] = item[this.props.child].map ((it, i)=> {
-            it.check = status
-            return this.setChildCheckByParent(it, status)
-          })
+    // 根据父类设置子以及子孙类选中状态
+    setChildCheckByParent (item, status) {
+      if (item && item[this.props.child] && item[this.props.child].length > 0) {
+        item[this.props.child] = item[this.props.child].map((it, i) => {
+          it.check = status
+          return this.setChildCheckByParent(it, status)
+        })
+      }
+      return item
+    },
+    // 点击后设置选项选中状态，以及相关连子父选中状态
+    resetItem (item, idxArr, ix, currentItem, isall) {
+      let curIndex = ix + 1
+      if (curIndex === idxArr.length && currentItem.id === item[this.props.id]) {
+        // 表示这是当前项
+        if (isall || isall === 0) {
+          item.check = isall
+        } else {
+          item.check = (item.check === 1 ? 0 : 1)
         }
+
+        this.setChildCheckByParent(item, item.check)
+      }
+
+      if (!item[this.props.child]) {
         return item
-      },
-      // 点击后设置选项选中状态，以及相关连子父选中状态
-      resetItem (item, idxArr, ix, currentItem, isall) {
-        let curIndex = ix + 1
-        if (curIndex === idxArr.length && currentItem.id === item[this.props.id]) {
-          // 表示这是当前项
-          if(isall || isall === 0){
-            item.check = isall
-          }else{
-            item.check = (item.check === 1 ? 0 : 1)
+      }
+      let status1 = 0
+      let status2 = 0
+
+      if (item[this.props.child].length > 0) {
+        item[this.props.child] = item[this.props.child].map((it, i) => {
+          let childItem = this.resetItem(it, idxArr, curIndex, currentItem)
+          if (childItem.check === 1) {
+            status1++
+          } else if (childItem.check === 2) {
+            status2++
           }
-          
-          this.setChildCheckByParent(item, item.check)
+          return childItem
+        })
+
+        if (status1 === item[this.props.child].length) {
+          item.check = 1
+        } else if (status2 > 0 || status1 > 0) {
+          item.check = 2
+        } else {
+          item.check = null
         }
+      }
+      return item
+    },
 
-        if (!item[this.props.child]) {
-          return item
-        }
-        let status1 = 0
-        let status2 = 0
-
-        if(item[this.props.child].length > 0 ){
-
-        
-          item[this.props.child] = item[this.props.child].map ((it, i) => {
-            let childItem = this.resetItem(it, idxArr, curIndex, currentItem)
-            if (childItem.check === 1 ) {
-              status1++
-            } else if (childItem.check === 2) {
-              status2++
-            }
-            return childItem
-          })
-          
-          if (status1 === item[this.props.child].length ) {
-            item.check = 1
-          } else if (status2 > 0 || status1> 0) {
-            item.check = 2
-          } else {
-            item.check = null
-          }
-          
-        }
-        return item
-      },
-
-      /***
+    /***
        * 选中事件 变量选中状态
        * @param item
        * @param index
          */
-      checkedItem(item, index, isall) {
+    checkedItem (item, index, isall) {
+      // 获取此项在树中所在位置
+      let idx = item.idx + ''
+      let idxArr = idx.split('-')
+      let myTreeData = this.myTreeData
+      myTreeData[idxArr[0]] = this.resetItem(myTreeData[idxArr[0]], idxArr, 0, item, isall)
+      this.myTreeData = myTreeData
+      this.onChange()
+    },
+    // 获取展开的树
+    getExpandUl () {
+      let newArr = this.myTreeData
+      let htmlArr = []
 
-        // 获取此项在树中所在位置
-        let idx = item.idx + ''
-        let idxArr = idx.split('-')
-        let myTreeData = this.myTreeData
-        myTreeData[idxArr[0]] = this.resetItem(myTreeData[idxArr[0]], idxArr, 0, item, isall)
-        this.myTreeData = myTreeData
-        this.onChange()
-      },
-      // 获取展开的树
-      getExpandUl () {
-        let newArr = this.myTreeData
-        let htmlArr = []
-
-        for (let i=0; i< this.expandingIndexArr.length+1; i++) {
-          let allNum = 0 //记录是否全选 
-          let v = i< this.expandingIndexArr.length ? this.expandingIndexArr[i] : null
-          let htmlChildArr = newArr.map((item, index) => {
-//            item.lev = i
-            const events = {
-              on: {
-              }
-            }
-            // 选项框点击
-            const checkBoxEvents = {
-              on: {
-                click:(e)=> {
-                  // e.stopPropagation()
-                  this.checkedItem(item, index)
-                }
-              }
-            }
-
-            let checkBoxHtml = (<span class="td-tree_checkbox" {...checkBoxEvents}></span>);
-            if (item.check == 1) {
-              checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__checked" {...checkBoxEvents}></span>);
-              
-             allNum ++
-            } else if (item.check == 2) {
-              checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__inner" {...checkBoxEvents}></span>);
-            }
-
-            // 行点击展开
-            events.on.click = () => {
-              this.selectItem(item, index)
-            }
-
-            let isFlat = false
-            if (index == v) {
-              isFlat = true
-            }
-            return (
-              <li class={{
-                  'cascader-tree_module_li': true,
-                  'cascader-tree_li_current': isFlat
-                }}
-                {...events}
-              >
-                {checkBoxHtml}
-                <span class="td-tree_checkbox_span">{item[this.props.name]}</span>
-              </li>
-            )
-          })
-           this.allData['s'+i] = allNum
-            
-          const checkBoxAll = {
+      for (let i = 0; i < this.expandingIndexArr.length + 1; i++) {
+        let allNum = 0 // 记录是否全选
+        let v = i < this.expandingIndexArr.length ? this.expandingIndexArr[i] : null
+        let htmlChildArr = newArr.map((item, index) => {
+          //            item.lev = i
+          const events = {
             on: {
-              click:(e)=> {
+            }
+          }
+          // 选项框点击
+          const checkBoxEvents = {
+            on: {
+              click: (e) => {
                 // e.stopPropagation()
-                if(i==0){
-                  let myTreeData = this.myTreeData.slice(0)
-                  e.path[0].dataset.isall = e.path[0].dataset.isall == 0 || e.path[0].dataset.isall == null ? 1 : 0
-                  myTreeData.map((item, index) => {
-                    this.checkedItem(item, index, parseInt(e.path[0].dataset.isall));
-                  })
-                }else{
-                  let myTreeData = this.myTreeData.slice(0)
-
-                  for(let j = 0 ; j < i; j++){
-                    if( j == 0 ){
-                      myTreeData = myTreeData[this.expandingIndexArr[j]]
-                    }else{
-                      myTreeData = myTreeData.childCategory[this.expandingIndexArr[j]]
-                    }
-                  }
-                  this.checkedItem(myTreeData)
-                }
+                this.checkedItem(item, index)
               }
             }
           }
-          if (htmlChildArr.length > 0) {
-            let checkBoxHtml = (<span class="td-tree_checkbox"></span>);
-            if (this.allData['s'+i] == htmlChildArr.length) {
-              checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__checked"></span>);
-            } else if (this.allData['s'+i] < htmlChildArr.length && this.allData['s'+i] != 0) {
-              checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__inner"></span>); 
-            }
-            htmlArr.push(
-              <div class="cascader-tree_panel">
-                <div class="cascader-tree_module_title">
-                  <span>{i+1}级</span>
-                  <p class="cascader-tree_module_p" data-isall="0" {...checkBoxAll}>
-                  
-                    {checkBoxHtml}
-                    <span class="td-tree_title">全选</span>
-                  </p>
-                </div>
-                <ul class="cascader-tree_module_ul" style={this.ulStyle}> {htmlChildArr} </ul>
-              </div>)
+
+          let checkBoxHtml = (<span class="td-tree_checkbox" {...checkBoxEvents}></span>)
+          if (item.check == 1) {
+            checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__checked" {...checkBoxEvents}></span>)
+
+            allNum++
+          } else if (item.check == 2) {
+            checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__inner" {...checkBoxEvents}></span>)
           }
-          if (v !=null && newArr[v] && newArr[v][this.props.child]) {
-            newArr =  newArr[v][this.props.child]
-          } else {
-            newArr =  []
+
+          // 行点击展开
+          events.on.click = () => {
+            this.selectItem(item, index)
+          }
+
+          let isFlat = false
+          if (index == v) {
+            isFlat = true
+          }
+          return (
+            <li class={{
+              'cascader-tree_module_li': true,
+              'cascader-tree_li_current': isFlat
+            }}
+            {...events}
+            >
+              {checkBoxHtml}
+              <span class="td-tree_checkbox_span">{item[this.props.name]}</span>
+            </li>
+          )
+        })
+        this.allData['s' + i] = allNum
+
+        const checkBoxAll = {
+          on: {
+            click: (e) => {
+              // e.stopPropagation()
+              if (i == 0) {
+                let myTreeData = this.myTreeData.slice(0)
+                e.path[0].dataset.isall = e.path[0].dataset.isall == 0 || e.path[0].dataset.isall == null ? 1 : 0
+                myTreeData.map((item, index) => {
+                  this.checkedItem(item, index, parseInt(e.path[0].dataset.isall))
+                })
+              } else {
+                let myTreeData = this.myTreeData.slice(0)
+
+                for (let j = 0; j < i; j++) {
+                  if (j == 0) {
+                    myTreeData = myTreeData[this.expandingIndexArr[j]]
+                  } else {
+                    myTreeData = myTreeData.childCategory[this.expandingIndexArr[j]]
+                  }
+                }
+                this.checkedItem(myTreeData)
+              }
+            }
           }
         }
-        return htmlArr
-      },
-      createFilter(queryString, initTreeData, resArr) {
-        initTreeData.forEach((item, index) => {
-          if ( item[this.props.name] && ( item[this.props.name].indexOf(queryString) > -1 )) {
-            item.value =  item[this.props.name] + ' [' + item.lev + '级]'
-            if (item.check === 1) {
-              item.value = item.value + ' [已选]'
-            } else if (item.check === 2) {
-              item.value = item.value + ' [子孙类有选]'
-            }
-            resArr.push(item)
+        if (htmlChildArr.length > 0) {
+          let checkBoxHtml = (<span class="td-tree_checkbox"></span>)
+          if (this.allData['s' + i] == htmlChildArr.length) {
+            checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__checked"></span>)
+          } else if (this.allData['s' + i] < htmlChildArr.length && this.allData['s' + i] != 0) {
+            checkBoxHtml = (<span class="td-tree_checkbox td-tree_checkbox__inner"></span>)
           }
-          if (item[this.props.child] && item[this.props.child].length > 0) {
-            this.createFilter(queryString, item[this.props.child], resArr)
-          }
-        })
-      },
-      querySearch(queryString, cb) {
+          htmlArr.push(
+            <div class="cascader-tree_panel">
+              <div class="cascader-tree_module_title">
+                <span>{i + 1}级</span>
+                <p class="cascader-tree_module_p" data-isall="0" {...checkBoxAll}>
 
-        let results =  []
-        if (!queryString) {
-          return cb(results);
+                  {checkBoxHtml}
+                  <span class="td-tree_title">全选</span>
+                </p>
+              </div>
+              <ul class="cascader-tree_module_ul" style={this.ulStyle}> {htmlChildArr} </ul>
+            </div>)
         }
-
-        this.createFilter(queryString, this.myTreeData, results)
-
-        results.sort(function(a, b) {
-          return b.lev - a.lev
-        })
-
-        // 调用 callback 返回建议列表的数据
-        cb(results);
-      },
-      handleSelect (item) {
-        this.checkedItem(item)
-        this.queryVal = ''
-      }
-    },
-    mounted () {
-      let that = this
-      that.formatterTreeArr()
-
-      let tdSearchAutocomplete = this.$refs.tdSearchAutocomplete
-      tdSearchAutocomplete.handleComposition = function(event) {
-        if (event.type === 'compositionend') {
-          this.isOnComposition = false
-          this.handleChange(event.target.value)
+        if (v != null && newArr[v] && newArr[v][this.props.child]) {
+          newArr = newArr[v][this.props.child]
         } else {
-          this.isOnComposition = true
+          newArr = []
         }
       }
-
+      return htmlArr
     },
-    render (h) {
-      const {querySearch, getExpandUl, myTreeData, handleSelect, queryVal} = this
-      let expand = ''
-      if (myTreeData && myTreeData.length > 0) {
-        expand = getExpandUl()
-      }
-      const searchEvents = {
-        on: {
+    createFilter (queryString, initTreeData, resArr) {
+      initTreeData.forEach((item, index) => {
+        if (item[this.props.name] && (item[this.props.name].indexOf(queryString) > -1)) {
+          item.value = item[this.props.name] + ' [' + item.lev + '级]'
+          if (item.check === 1) {
+            item.value = item.value + ' [已选]'
+          } else if (item.check === 2) {
+            item.value = item.value + ' [子孙类有选]'
+          }
+          resArr.push(item)
         }
+        if (item[this.props.child] && item[this.props.child].length > 0) {
+          this.createFilter(queryString, item[this.props.child], resArr)
+        }
+      })
+    },
+    querySearch (queryString, cb) {
+      let results = []
+      if (!queryString) {
+        return cb(results)
       }
-      searchEvents.on.select = (item)=>{
-        handleSelect(item)
-      }
-      searchEvents.on.input = (val)=>{
-        this.queryVal = val
-      }
-      return (
-        <div class="cascader-tree_module">
-          <div class="cascader-tree_header">
-            <el-autocomplete
-              props ={{
-                label: 'value',
-                value: 'name'
-              }}
-              fetch-suggestions= {querySearch}
-              value={queryVal}
-              clearable={true}
-              trigger-on-focus={false}
-              ref= 'tdSearchAutocomplete'
-              placeholder= '请输入名称进行搜索'
-              class= 'cascader-tree_search'
-              {...searchEvents}
-            ></el-autocomplete>
-          </div>
-          <div class="cascader-tree_body">
-            {expand}
-          </div>
-        </div>
-      )
-    }
 
+      this.createFilter(queryString, this.myTreeData, results)
+
+      results.sort(function (a, b) {
+        return b.lev - a.lev
+      })
+
+      // 调用 callback 返回建议列表的数据
+      cb(results)
+    },
+    handleSelect (item) {
+      this.checkedItem(item)
+      this.queryVal = ''
+    }
+  },
+  mounted () {
+    let that = this
+    that.formatterTreeArr()
+
+    let tdSearchAutocomplete = this.$refs.tdSearchAutocomplete
+    tdSearchAutocomplete.handleComposition = function (event) {
+      if (event.type === 'compositionend') {
+        this.isOnComposition = false
+        this.handleChange(event.target.value)
+      } else {
+        this.isOnComposition = true
+      }
+    }
+  },
+  render (h) {
+    const {querySearch, getExpandUl, myTreeData, handleSelect, queryVal} = this
+    let expand = ''
+    if (myTreeData && myTreeData.length > 0) {
+      expand = getExpandUl()
+    }
+    const searchEvents = {
+      on: {
+      }
+    }
+    searchEvents.on.select = (item) => {
+      handleSelect(item)
+    }
+    searchEvents.on.input = (val) => {
+      this.queryVal = val
+    }
+    return (
+      <div class="cascader-tree_module">
+        <div class="cascader-tree_header">
+          <el-autocomplete
+            props ={{
+              label: 'value',
+              value: 'name'
+            }}
+            fetch-suggestions= {querySearch}
+            value={queryVal}
+            clearable={true}
+            trigger-on-focus={false}
+            ref= 'tdSearchAutocomplete'
+            placeholder= '请输入名称进行搜索'
+            class= 'cascader-tree_search'
+            {...searchEvents}
+          ></el-autocomplete>
+        </div>
+        <div class="cascader-tree_body">
+          {expand}
+        </div>
+      </div>
+    )
   }
+
+}
 </script>
 <style lang="scss">
 .cascader-tree_module {

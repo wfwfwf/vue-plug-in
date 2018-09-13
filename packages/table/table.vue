@@ -44,54 +44,54 @@
 export default {
   name: 'td-table',
   props: {
-    data:{
+    data: {
       type: Array,
-      default: function() {
-        return [];
+      default: function () {
+        return []
       }
     },
-    columns:Array,        // 列
+    columns: Array, // 列
     width: [String, Number],
     height: [String, Number],
     existCheckBox: {
       type: Boolean,
       default: true
     },
-    existPage : {         // 是否有分页面，false时表示没有分页
+    existPage: { // 是否有分页面，false时表示没有分页
       type: Boolean,
       default: true
     },
-    isShowOrderNum : {         // 是否有显示序号
+    isShowOrderNum: { // 是否有显示序号
       type: Boolean,
       default: false
     },
-    pageInfo:{            // 分页面信息 records 总为数; page 页数; pageSize 一页显示条目数;
+    pageInfo: { // 分页面信息 records 总为数; page 页数; pageSize 一页显示条目数;
       type: Object,
-      default: function() {
+      default: function () {
         return {
-          page:1,
-          pageSize:20,
-          records:0
-        };
+          page: 1,
+          pageSize: 20,
+          records: 0
+        }
       }
     }
 
   },
-  data() {
+  data () {
     return {
-      myPageInfo:{}
-    };
+      myPageInfo: {}
+    }
   },
   watch: {
     pageInfo: {
-      handler(curVal,oldVal){
+      handler (curVal, oldVal) {
         this.myPageInfo = {
-          page:curVal.page,
-          pageSize:curVal.pageSize,
-          records:curVal.records
+          page: curVal.page,
+          pageSize: curVal.pageSize,
+          records: curVal.records
         }
       },
-      deep:true
+      deep: true
     }
   },
   computed: {
@@ -99,43 +99,43 @@ export default {
   },
   methods: {
     // 筛选
-    tableFilter(val){
-      this.$emit("filter-change", val)
+    tableFilter (val) {
+      this.$emit('filter-change', val)
     },
     // 条数更改
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.myPageInfo.pageSize = val
       if (this.myPageInfo.page != 1) {
-        this.myPageInfo.page = 1;
+        this.myPageInfo.page = 1
       }
-      this.$emit("handleSizeChange", val)
+      this.$emit('handleSizeChange', val)
       this.$emit('size-change', val)
     },
     // 页面更改
-    handleCurrentChange(val) {
-      this.myPageInfo.page = val;
-      this.$emit("handleCurrentChange", val)
+    handleCurrentChange (val) {
+      this.myPageInfo.page = val
+      this.$emit('handleCurrentChange', val)
       this.$emit('current-change', val)
     },
     // 行点击
-    handleRowHandle(row, event, column) {
-      this.$emit("handleRowHandle", row, event, column)
-      this.$emit("row-click", row, event, column)
+    handleRowHandle (row, event, column) {
+      this.$emit('handleRowHandle', row, event, column)
+      this.$emit('row-click', row, event, column)
     },
-    defaultFormatter(row, column) {
+    defaultFormatter (row, column) {
       return row[column.property]
     },
     // 当选择项发生变化时会触发该事件
-    handleSelectionChange(val) {
-      this.$emit("selection-change", val)
+    handleSelectionChange (val) {
+      this.$emit('selection-change', val)
     }
   },
-  mounted() {
+  mounted () {
     this.myPageInfo = {
-      page:this.pageInfo.page,
-      pageSize:this.pageInfo.pageSize,
-      records:this.pageInfo.records
+      page: this.pageInfo.page,
+      pageSize: this.pageInfo.pageSize,
+      records: this.pageInfo.records
     }
   }
-};
+}
 </script>

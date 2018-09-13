@@ -583,6 +583,12 @@ export default {
   methods: {
     onEnd () {
       console.log(this.list)
+    },
+    startDrag (data) {
+      console.log(data)
+    },
+    onEndDrag (data) {
+      console.log(data)
     }
   }
 }

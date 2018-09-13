@@ -1,8 +1,12 @@
 <template>
   <div class="dragTable">
 
-    <td-draggable element="el-table" :list="tableData" :data="tableData" :options="dragOptions" dragSelector="tbody" @end='endDrag'>
+    <td-draggable element="el-table" ref='tdDragTable' :list="tableData" :data="tableData" :options="dragOptions" dragSelector="tbody" @end='endDrag' @row-click='rowClick' @selection-change="handleSelectionChange">
 
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
       <el-table-column  type="index" label="序号" width="70">
         <template slot-scope="scope">
           {{1+scope.$index}}
@@ -21,6 +25,7 @@
         </el-table-column>
       </template>
     </td-draggable>
+    <div><el-button @click='getDrag'>获取选中项</el-button></div>
   </div>
 </template>
 
@@ -51,7 +56,7 @@ export default {
         prop: 'type',
         label: '盘点类型',
         formatter: function (item) {
-          return 'cc'
+          return item.type
         }
       }]
     }
@@ -59,9 +64,18 @@ export default {
   components: {
   },
   methods: {
+    rowClick (row, event, column) {
+      console.log(row, event, column)
+    },
     endDrag (data) {
       console.log('data: ', data)
       console.log(this.tableData)
+    },
+    handleSelectionChange (selection) {
+      console.log('>>.', selection)
+    },
+    getDrag () {
+      console.log(this.$refs.tdDragTable.$children[0].selection)
     }
   }
 }
