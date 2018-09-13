@@ -100,7 +100,7 @@ export default {
     }
   },
 
-  render (h) {
+  render (h, context) {
     const slots = this.$slots.default
     if (slots && slots.length === 1) {
       const child = slots[0]
@@ -123,7 +123,20 @@ export default {
     } else {
       update('attrs', this.$attrs)
     }
-    console.log(this)
+
+    // 继承element table 的所有方法
+    attributes.on = this.$listeners
+    // {
+    //   'selection-change': (selection) => {
+    //     console.log('params: ', selection)
+    //     console.log('this: ', this)
+    //     this.$emit('selection-change', selection)
+    //   },
+    //   'row-click': (row, event, column) => {
+    //     console.log('params: ', row)
+    //     this.$emit('row-click', row)
+    //   }
+    // }
     return h(this.element, attributes, children)
   },
 

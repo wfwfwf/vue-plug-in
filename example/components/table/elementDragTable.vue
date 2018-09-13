@@ -75,8 +75,15 @@ export default {
       console.log('>>.', selection)
     },
     getDrag () {
+      console.log(this.$refs.tdDragTable.$children[0])
       console.log(this.$refs.tdDragTable.$children[0].selection)
     }
+  },
+  mounted () {
+
+    // this.$refs.tdDragTable.$children[0].bindEvents('selectionChange', function (params) {
+    //   console.log('params: ', params)
+    // })
   }
 }
 </script>
